@@ -6,7 +6,9 @@ import "dotenv/config";
 
 import connectDatabase from "./db/connectDatabase.js";
 import contactsRouter from "./routes/contactsRouter.js";
-import Contact from "./models/Contact.js";
+import authRouter from "./routes/auth.js";
+
+
 
 const app = express();
 
@@ -15,6 +17,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/contacts", contactsRouter);
+app.use("/api/auth", authRouter); 
 
 app.use((_, res) => {
   res.status(404).json({ message: "Route not found" });
@@ -29,8 +32,7 @@ app.use((err, req, res, next) => {
 });
 
 await connectDatabase();
-// await Contact.sync({ force: true }); // ← Добавить здесь
-// console.log("Table synchronized");
+
 
 const port = Number(process.env.PORT) || 3000;
 

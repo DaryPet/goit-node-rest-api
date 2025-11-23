@@ -1,8 +1,9 @@
-import sequelize from "./sequelize.js";
+import { sequelize } from "../db/index.js";
 
 const connectDatabase = async() => {
     try {
         await sequelize.authenticate();
+        // await sequelize.sync();
         console.log("Database connection successful"); 
     }
     catch(error) {

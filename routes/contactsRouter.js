@@ -13,8 +13,11 @@ import {
   updateContactSchema,
   updateFavoriteSchema
 } from "../schemas/contactsSchemas.js";
+import tokenValidation from "../middleware/tokenValidation.js";
 
 const contactsRouter = express.Router();
+
+contactsRouter.use(tokenValidation);
 
 contactsRouter.get("/", getAllContacts);
 
