@@ -15,6 +15,7 @@ const app = express();
 app.use(morgan("tiny"));
 app.use(cors());
 app.use(express.json());
+app.use(express.static('public'));
 
 app.use("/api/contacts", contactsRouter);
 app.use("/api/auth", authRouter); 
@@ -33,9 +34,4 @@ app.use((err, req, res, next) => {
 
 await connectDatabase();
 
-
-const port = Number(process.env.PORT) || 3000;
-
-app.listen(port, () => {
-  console.log(`Server is running. Use our API on port: ${port}`);
-});
+export { app };
