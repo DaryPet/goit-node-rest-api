@@ -1,12 +1,7 @@
-import Joi from 'joi';
+import { registerSchema, loginSchema, resendVerificationSchema } from '../schemas/authSchemas.js';
 
 const registerValidation = (req, res, next) => {
-  const schema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().min(6).required(),
-  });
-
-  const { error } = schema.validate(req.body);
+  const { error } = registerSchema.validate(req.body);
   if (error) {
     return res.status(400).json({
       message: error.details[0].message
@@ -16,12 +11,7 @@ const registerValidation = (req, res, next) => {
 };
 
 const loginValidation = (req, res, next) => {
-  const schema = Joi.object({
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-  });
-
-  const { error } = schema.validate(req.body);
+  const { error } = loginSchema.validate(req.body);
   if (error) {
     return res.status(400).json({
       message: error.details[0].message
@@ -30,4 +20,14 @@ const loginValidation = (req, res, next) => {
   next();
 };
 
-export { registerValidation, loginValidation };
+const resendVerificationValidation = (req, res, next) => {
+  const { error } = resendVerificationSchema.validate(req.body);
+  if (error) {
+    return res.status(400).json({
+      message: error.details[0].message
+    });
+  }
+  next();
+};
+
+export { registerValidation, loginValidation, resendVerificationValidation };

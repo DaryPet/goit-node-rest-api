@@ -8,6 +8,9 @@ const connectDatabase = async() => {
     }
     catch(error) {
         console.error("Database connect failed", error.message);
+        console.error("Database connect failed:", error);
+        // Не завершай процесс сразу, дай увидеть ошибку
+        throw error;
         process.exit(1); 
     }
 }
